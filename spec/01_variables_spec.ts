@@ -167,4 +167,77 @@ describe('variables and constants', () => {
         });
     });
 
+    describe('objects and destructuring of objects', () => {
+        describe('object literals', () => {
+            interface Movie { title: string, director: string };
+            // const movie :{title: string, director: string } = {
+            //     title: 'The Last Jedi',
+            //     director: 'Rian Johnson'
+            // }
+            const movie: Movie = {
+                title: 'The Last Jedi',
+                director: 'Rian Johnson'
+            };
+            const movie2: Movie = {
+                title: 'The Last Jedi1',
+                director: 'Rian Johnson1'
+            };
+        });
+        it('duck typing', () => {
+            function doIt(thing: { message: string }) {
+                console.log(thing.message);
+            }
+            doIt({ message: 'Call you dada' });
+
+            const phoneCall = {
+                from: 'Jenny',
+                when: 'noon',
+                callbackNumber: '867-5309',
+                message: 'Pay me!'
+            }
+
+            doIt(phoneCall);
+
+            interface PhoneCallType {
+                message: string,
+                from?: string
+            }
+
+            // doIt("Tacos");
+            // doIt();
+            // doIt({message: 'Call your mom'}, 1, 2, 3);
+            doIt({ message: 'Call your mom' });
+
+            const phoneCall1 = {
+                from: 'Jenny',
+                when: 'noon',
+                callbackNumber: '867-5309',
+                message: 'Pay me!'
+            }
+
+            doIt(phoneCall1);
+
+            class PhoneCall implements PhoneCallType {
+                constructor(public message: string, public from: string, private when: string) {
+                    //
+                }
+
+                getInfo() {
+                    return `Call from ${this.from}. Message ${this.message} at ${this.when}`;
+                }
+            }
+
+            const pc1 = new PhoneCall('Wash Car', 'Carol', 'noon');
+            console.log(pc1.getInfo());
+
+            doIt(pc1);
+
+            const pc2: PhoneCallType = {
+                message: 'From Wify',
+                from: 'test'
+            };
+        });
+
+    });
+
 });
